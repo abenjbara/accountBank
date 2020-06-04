@@ -1,7 +1,9 @@
 package ing.kata.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,11 +20,18 @@ public class Custumer {
 	  private String lastName;
 	  private String phone;
 	  
-	  @OneToMany(mappedBy="owner")
+	  @OneToMany(mappedBy="owner" , cascade = CascadeType.ALL)
 	  private List<Account> accounts;
 	  
-	
-	  private String bankName;
+	  public Custumer() {
+		  accounts = new ArrayList<>();
+	  }
+	  
+	  public Custumer(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		accounts = new ArrayList<>();
+	  }
 
 	  @Override
 	  public String toString() {
@@ -50,13 +59,14 @@ public class Custumer {
 	  public void setPhone(String phone) {
 			this.phone = phone;
 	  }
-
-	  public String getBankName() {
-			return bankName;
+	  
+	  public void addAccount(Account ac) {
+		  accounts.add(ac);
 	  }
-	
-	  public void setBankName(String bankName) {
-			this.bankName = bankName;
-	 }
+
+	 public List<Account> getAccounts() {
+		return accounts;
+	 }	  
+	  
 	
 }

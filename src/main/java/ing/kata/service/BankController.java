@@ -17,10 +17,13 @@ public class BankController {
 	@Autowired
 	private BankBusiness bankBusiness;
 	
+	/**
+	 * US1 : En tant que banque, j'accepte le dépôt d'argent d'un client vers son compte, s'il est supérieur à 0,01€
+	 * @return un message a l'utilisateur
+	 */
 	@PostMapping("/deposit")
 	public String deport(@RequestBody TransactionDTO transactionDTO) {
-		bankBusiness.depositMoney(transactionDTO.getAccountId(), transactionDTO.getCustumerId(), transactionDTO.getAmount());
-		return "bien déposé";
+		return bankBusiness.depositMoney(transactionDTO.getAccountId(), transactionDTO.getCustumerId(), transactionDTO.getAmount());
 	}
 
 }

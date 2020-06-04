@@ -41,6 +41,22 @@ public class Account {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="costumer_id", nullable=false)
+	@JoinColumn(name="costumer_id")
 	private Custumer owner;
+	
+	
+
+	public Account() {}
+	
+	public Account(double solde) {
+		this.solde = solde;
+	}
+	
+	  @Override
+	  public String toString() {
+	    return String.format(
+	        "Account[id=%d, solde='%f']",
+	        id, solde);
+	  }
+	
 }
