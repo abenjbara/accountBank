@@ -25,5 +25,14 @@ public class BankController {
 	public String deport(@RequestBody TransactionDTO transactionDTO) {
 		return bankBusiness.depositMoney(transactionDTO.getAccountId(), transactionDTO.getCustumerId(), transactionDTO.getAmount());
 	}
+	
+	/**
+	 * US2 : En tant que banque, j'accepte le dépôt d'argent d'un client vers son compte, s'il est supérieur à 0,01€
+	 * @return un message a l'utilisateur
+	 */
+	@PostMapping("/withdraw")
+	public String withdraw(@RequestBody TransactionDTO transactionDTO) {
+		return bankBusiness.withdrawMoney(transactionDTO.getAccountId(), transactionDTO.getCustumerId(), transactionDTO.getAmount());
+	}
 
 }
