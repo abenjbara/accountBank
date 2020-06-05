@@ -34,4 +34,10 @@ public class TransactionDTO {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	public TransactionDTO(Long custumerId, Long accountId, double amount) {
+		this.custumerId = custumerId;
+		this.accountId = accountId;
+		this.amount = amount;
+	}
 }

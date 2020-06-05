@@ -26,19 +26,34 @@ public class App {
 		return args -> {
 			
 			Custumer c1 = new Custumer("jean", "pierre");
-			c1.addAccount(new Account(15552.4));
+			//c1.addAccount(new Account(15552.4));
 			
 			Custumer c2 = new Custumer("adam", "benjbara"); 
-			c2.addAccount(new Account());
+			//c2.addAccount(new Account());
 			
 			Custumer c3 = new Custumer("celine", "barreau"); 
-			c3.addAccount(new Account(666.3));
-			c3.addAccount(new Account(10000));
+			//c3.addAccount(new Account(666.3));
+			//c3.addAccount(new Account(10000));
+			
+			Account a1 = new Account(256.5);
+			Account a2 = new Account(1000.5);
+			Account a3 = new Account();
+			Account a4 = new Account(79999.6);
 			
 			custumerR.save(custumerR.save(c1));
 			custumerR.save(custumerR.save(c2));
 		    custumerR.save(custumerR.save(c3));
-			
+		    
+		    a1.setOwner(c1);
+		    a2.setOwner(c2);
+		    a3.setOwner(c3);
+		    a4.setOwner(c3);
+		    
+		    accountR.save(a1);
+		    accountR.save(a2);
+		    accountR.save(a3);
+		    accountR.save(a4);
+		    
 			System.out.println("liste des custumer" );
 			for ( Custumer c : custumerR.findAll()) {
 				System.out.println(c);
