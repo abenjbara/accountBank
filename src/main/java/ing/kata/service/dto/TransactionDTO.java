@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionDTO {
 	
+	private long clientId;
 	
-	private Long accountId;
+	private long accountId;
 	
 	private double amount;
 }

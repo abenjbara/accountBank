@@ -1,3 +1,8 @@
 bank:
   min-deposit: 0.1
   
+#spring:
+#  security:
+#    user:
+#      name: bank_login
+#      password: bank_pass

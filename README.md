@@ -32,6 +32,8 @@ dans cette API REST on trouve un service par US (4 services au total), et un tes
 * http://localhost:8080/bank/history/{idAccount}
 * exemple http://localhost:8080/bank/history/4
 
+### Securité
+tout le code de sécurité est commenté
 
 ## Jeu de données
 En lancant l'application , 3 clients et 4 comptes sont crées.

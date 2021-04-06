@@ -31,7 +31,7 @@ class BankServiceTest {
 	// US1
 	@Test
 	void shouldDepositMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 95.6);
+		TransactionDTO dto = new TransactionDTO(1L, ExistingAccountNumber, 95.6);
 		
 		this.mockMvc.perform( MockMvcRequestBuilders 			
 					.post("/bank/deposit")
@@ -44,7 +44,7 @@ class BankServiceTest {
 	// US1
 	@Test
 	void shouldNotDepositMoney() throws Exception{
-		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 0);
+		TransactionDTO dto = new TransactionDTO(1L, ExistingAccountNumber, 0);
 		
 		this.mockMvc.perform( MockMvcRequestBuilders 			
 				.post("/bank/deposit")
@@ -57,7 +57,7 @@ class BankServiceTest {
 	// US2
 	@Test
 	void shouldWithdrawtMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 95.6);
+		TransactionDTO dto = new TransactionDTO(1L, ExistingAccountNumber, 95.6);
 		this.mockMvc.perform( MockMvcRequestBuilders 
 				
 				

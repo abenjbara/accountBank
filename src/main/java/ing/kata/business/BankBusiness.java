@@ -32,10 +32,15 @@ public class BankBusiness {
 	 * @return message
 	 */
 	@Transactional
-	public String depositMoney(Long acountId, double amount) {
+	public String depositMoney(Long custumerId, Long acountId, double amount) {
+		
+		// controle
 		Account account =  accountRepository.findById(acountId)
 											.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
+		this.checkAcount(custumerId, account);
 		
+		
+		// traitement
 		if(amount < minDeposite) {
 			throw new BankException("Le montant déposé doit etre superieur à " +  minDeposite + " euros");
 		}
@@ -53,9 +58,10 @@ public class BankBusiness {
 	 * @return message
 	 */
 	@Transactional
-	public String withdrawMoney(Long acountId, double amount) {
+	public String withdrawMoney(Long custumerId, Long acountId, double amount) {
 		Account account =  accountRepository.findById(acountId)
 				.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
+		this.checkAcount(custumerId, account);
 		
 		if(account.getSolde() - amount < 0) {
 			throw new BankException("Vous n'avez pas le droit d'utiliser le découvert");
@@ -74,9 +80,11 @@ public class BankBusiness {
 	 * @return message
 	 */
 	public double accountBalance(Long acountId){
+		// verification
 		Account account =  accountRepository.findById(acountId)
 				.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
 		
+		// retour du solde
 		return account.getSolde();
 	}
 	
@@ -88,19 +96,29 @@ public class BankBusiness {
 	public String transactionHistory(Long acountId) { 
 		Account account =  accountRepository.findById(acountId)
 				.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
+		
+		if(!account.getTransactions().isEmpty()) {
 			
-			if(!account.getTransactions().isEmpty()) {
-				
-				// Mettre tout l'historique dans un seul message (String)
-				StringBuilder history = new StringBuilder("Voici l'historique de vos transactions: ");			
-				for(Transaction transaction : account.getTransactions()) {
-					history.append(transaction.getAction() + " - ");
-				}
-				return history.toString();
-				
-			} else {
-				return "Aucune transaction sur ce compte";
-			}	
+			// Mettre tout l'historique dans un seul message (String)
+			StringBuilder history = new StringBuilder("Voici l'historique de vos transactions: ");			
+			for(Transaction transaction : account.getTransactions()) {
+				history.append(transaction.getAction() + " - ");
+			}
+			return history.toString();
+			
+		} 
+			
+		return "Aucune transaction sur ce compte";
+	}
+	
+	/**
+	 * Verifie si le client possède bien le compte 
+	 * @throws BankException
+	 */
+	private void checkAcount(long custumerId, Account account) throws BankException{
+		if(!account.getOwner().getId().equals(custumerId)) {
+			throw new BankException("Ce client ne gère pas ce compte");
+		}
 	}
 	
 }

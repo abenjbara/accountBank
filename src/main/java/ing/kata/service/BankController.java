@@ -24,8 +24,10 @@ public class BankController {
 	 * @return un message à l'utilisateur
 	 */
 	@PostMapping("/deposit")
+	//@PreAuthorize("hasAuthority('bank_edit')")
 	public ResponseEntity<String> deposit(@RequestBody TransactionDTO transactionDTO) {
-		String depositMessage =  bankBusiness.depositMoney(transactionDTO.getAccountId(), transactionDTO.getAmount());
+		
+		String depositMessage =  bankBusiness.depositMoney(transactionDTO.getClientId(), transactionDTO.getAccountId(), transactionDTO.getAmount());
 		return ResponseEntity.ok(depositMessage);
 	}
 	
@@ -35,7 +37,7 @@ public class BankController {
 	 */
 	@PostMapping("/withdraw")
 	public ResponseEntity<String> withdraw(@RequestBody TransactionDTO transactionDTO) {
-		String withdrawMessage = bankBusiness.withdrawMoney(transactionDTO.getAccountId(), transactionDTO.getAmount());
+		String withdrawMessage = bankBusiness.withdrawMoney(transactionDTO.getClientId(), transactionDTO.getAccountId(), transactionDTO.getAmount());
 		return ResponseEntity.ok(withdrawMessage);
 	}
 	
@@ -46,7 +48,7 @@ public class BankController {
 	@GetMapping("/balance/{idAccount}")
 	public ResponseEntity<String> balance(@PathVariable Long idAccount){
 		double balance = bankBusiness.accountBalance(idAccount);
-		return  ResponseEntity.ok("Votre solde est : " + balance);
+		return  ResponseEntity.ok("Votre soldee est : " + balance);
 	}
 	
 	/**
@@ -58,4 +60,5 @@ public class BankController {
 		String transactionHistory = bankBusiness.transactionHistory(idAccount);
 		return  ResponseEntity.ok(transactionHistory);
 	}
+	
 }
