@@ -18,30 +18,46 @@ import ing.kata.service.dto.TransactionDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BankServiceTest {
+class BankServiceTest {
 
 
+	private static final long ExistingAccountNumber = 4L;
+	
+	private static final long NonExistingAccountNumber = 100L;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
 	// US1
 	@Test
-	public void shouldDepositMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(4L, 95.6);
-		this.mockMvc.perform( MockMvcRequestBuilders 
-				
-				
-		.post("/bank/deposit")
-		.content(asJsonString(dto))
-		.contentType(MediaType.APPLICATION_JSON)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk());
+	void shouldDepositMoney() throws Exception {
+		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 95.6);
+		
+		this.mockMvc.perform( MockMvcRequestBuilders 			
+					.post("/bank/deposit")
+					.content(asJsonString(dto))
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON))
+					.andExpect(status().isOk());
 	}
 	
 	// US1
 	@Test
-	public void shouldWithdrawtMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(4L, 95.6);
+	void shouldNotDepositMoney() throws Exception{
+		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 0);
+		
+		this.mockMvc.perform( MockMvcRequestBuilders 			
+				.post("/bank/deposit")
+				.content(asJsonString(dto))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isBadRequest());	// BankException		
+	}
+	
+	// US2
+	@Test
+	void shouldWithdrawtMoney() throws Exception {
+		TransactionDTO dto = new TransactionDTO(ExistingAccountNumber, 95.6);
 		this.mockMvc.perform( MockMvcRequestBuilders 
 				
 				
@@ -54,14 +70,26 @@ public class BankServiceTest {
 	
 	// US3
 	@Test
-	public void shouldshowBalance() throws Exception {
-		this.mockMvc.perform(get("/bank/balance/4")).andDo(print()).andExpect(status().isOk());
+	void shouldShowBalance() throws Exception {
+		this.mockMvc.perform(get("/bank/balance/"+ ExistingAccountNumber))
+			.andDo(print())
+			.andExpect(status().isOk());
+	}
+	
+	// US3
+	@Test
+	void shouldNotShowBalance() throws Exception {
+		this.mockMvc.perform(get("/bank/balance/"+ NonExistingAccountNumber))
+			.andDo(print())
+			.andExpect(status().isNotFound());  // NotFoundException
 	}
 	
 	// US4
 	@Test
-	public void shouldshowTransactionHistory() throws Exception {
-		this.mockMvc.perform(get("/bank/history/4")).andDo(print()).andExpect(status().isOk());
+	void shouldshowTransactionHistory() throws Exception {
+		this.mockMvc.perform(get("/bank/history/"+ ExistingAccountNumber))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 	
 	public static String asJsonString(final Object obj) {

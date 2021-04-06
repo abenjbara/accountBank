@@ -1,7 +1,8 @@
 # Bank Account Kata
 
 ## technologie utilisées
-* JAVA 8  - Spring boot 
+* JAVA 8  - Spring boot
+* JUnit 5
 * base de données H2
 
 

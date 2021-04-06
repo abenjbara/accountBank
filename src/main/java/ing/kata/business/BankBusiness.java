@@ -100,9 +100,7 @@ public class BankBusiness {
 				
 			} else {
 				return "Aucune transaction sur ce compte";
-			}
-		
-		
+			}	
 	}
 	
 }
