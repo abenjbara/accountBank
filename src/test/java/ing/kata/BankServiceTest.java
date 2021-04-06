@@ -27,7 +27,7 @@ public class BankServiceTest {
 	// US1
 	@Test
 	public void shouldDepositMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(1L, 4L, 95.6);
+		TransactionDTO dto = new TransactionDTO(4L, 95.6);
 		this.mockMvc.perform( MockMvcRequestBuilders 
 				
 				
@@ -41,7 +41,7 @@ public class BankServiceTest {
 	// US1
 	@Test
 	public void shouldWithdrawtMoney() throws Exception {
-		TransactionDTO dto = new TransactionDTO(1L, 4L, 95.6);
+		TransactionDTO dto = new TransactionDTO(4L, 95.6);
 		this.mockMvc.perform( MockMvcRequestBuilders 
 				
 				

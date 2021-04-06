@@ -7,7 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Transaction {
 
 	@Id
@@ -19,36 +24,10 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name="account_id")
 	private Account account;
-
-	public Transaction() {}
 	
 	public Transaction(String action, Account account) {
 		this.action = action;
 		this.account = account;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}	
 	 
 }

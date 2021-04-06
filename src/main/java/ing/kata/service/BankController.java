@@ -1,8 +1,7 @@
 package ing.kata.service;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,41 +20,42 @@ public class BankController {
 	private BankBusiness bankBusiness;
 	
 	/**
-	 * US1 : En tant que banque, j'accepte le dépôt d'argent d'un client vers son compte, s'il est supérieur à 0,01€
-	 * @return un message a l'utilisateur
+	 * US1 : En tant que banque, j'accepte le dépot d'argent d'un client vers son compte, s'il est supérieur à 0,01€
+	 * @return un message à l'utilisateur
 	 */
 	@PostMapping("/deposit")
-	public String deport(@RequestBody TransactionDTO transactionDTO) {
-		return bankBusiness.depositMoney(transactionDTO.getCustumerId(), transactionDTO.getAccountId(), transactionDTO.getAmount());
+	public ResponseEntity<String> deposit(@RequestBody TransactionDTO transactionDTO) {
+		String depositMessage =  bankBusiness.depositMoney(transactionDTO.getAccountId(), transactionDTO.getAmount());
+		return ResponseEntity.ok(depositMessage);
 	}
 	
 	/**
-	 * US2 : En tant que banque, j'accepte le dépôt d'argent d'un client vers son compte, s'il est supérieur à 0,01€
+	 * US2 : En tant que banque, j'accepte le retrait d'argent d'un client depuis son compte, s'il n'utilise pas le découvert
 	 * @return un message a l'utilisateur
 	 */
 	@PostMapping("/withdraw")
-	public String withdraw(@RequestBody TransactionDTO transactionDTO) {
-		return bankBusiness.withdrawMoney(transactionDTO.getCustumerId(), transactionDTO.getAccountId(), transactionDTO.getAmount());
+	public ResponseEntity<String> withdraw(@RequestBody TransactionDTO transactionDTO) {
+		String withdrawMessage = bankBusiness.withdrawMoney(transactionDTO.getAccountId(), transactionDTO.getAmount());
+		return ResponseEntity.ok(withdrawMessage);
 	}
 	
 	/**
 	 * US3: En tant que banque, j'offre la possibilité à mon client de consulter le solde de son compte
 	 * @return un message à l'utilisateur
-	 * @throws Exception
 	 */
 	@GetMapping("/balance/{idAccount}")
-	public String balance(@PathVariable Long idAccount) throws Exception {
+	public ResponseEntity<String> balance(@PathVariable Long idAccount){
 		double balance = bankBusiness.accountBalance(idAccount);
-		return "Votre solde est : " + balance;
+		return  ResponseEntity.ok("Votre solde est : " + balance);
 	}
 	
 	/**
 	 * US4 : En tant que banque, j'offre la possibilité à mon client de consulter l'historique des transactions sur son compte
 	 * @return un message à l'utilisateur
-	 * @throws Exception
 	 */
 	@GetMapping("/history/{idAccount}")
-	public String history(@PathVariable Long idAccount) throws Exception {
-		return bankBusiness.transactionHistory(idAccount);
+	public ResponseEntity<String> history(@PathVariable Long idAccount){
+		String transactionHistory = bankBusiness.transactionHistory(idAccount);
+		return  ResponseEntity.ok(transactionHistory);
 	}
 }

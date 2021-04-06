@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,69 +13,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Account {
-
-	 @Id
-	 @GeneratedValue(strategy=GenerationType.AUTO)
-	 private Long id;
-	 
-	 private double solde; 
-	 
-	 public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public double getSolde() {
-		return solde;
-	}
-
-	public void setSolde(double solde) {
+	
+	public Account(double solde) {
 		this.solde = solde;
 	}
-
-	public Custumer getOwner() {
-		return owner;
+	
+	public Account() {
+		transactions = new ArrayList<>();
 	}
 
-	public void setOwner(Custumer owner) {
-		this.owner = owner;
-	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	 
+	private double solde; 
 
 	@ManyToOne
 	@JoinColumn(name="costumer_id")
 	private Custumer owner;
 	
-	@OneToMany(mappedBy="account" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="account" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<Transaction> transactions;
-
-	public Account() {
-		transactions = new ArrayList<>();
-	}
-	
-	public Account(double solde) {
-		this.solde = solde;
-		transactions = new ArrayList<>();
-	}
-	
-	@Override
-	public String toString() {
-	   return String.format(
-	       "Account[id=%d, solde='%f']",
-	       id, solde);
-	}
-
-	public List<Transaction> getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(List<Transaction> transactions) {
-		this.transactions = transactions;
-	}
-	
 	
 }
