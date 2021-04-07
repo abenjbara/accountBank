@@ -12,6 +12,7 @@ dans cette API REST on trouve un service par US (4 services au total), et un tes
 ### Service 1 (correspond à l'US1)
 * @POST : http://localhost:8080/bank/deposit
 * exemple du body : {
+			"custumerId" : 1,
 			"accountId" : 4,
 			"amount" : 50
 		 }
@@ -19,6 +20,7 @@ dans cette API REST on trouve un service par US (4 services au total), et un tes
 ### Service 2 (correspond à l'US2)
 * @POST : http://localhost:8080/bank/deposit
 * exemple du body : {
+			"custumerId" : 1,
 			"accountId" : 4,
 			"amount" : 50
 		 }
