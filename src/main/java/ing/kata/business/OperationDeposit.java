@@ -22,6 +22,10 @@ public class OperationDeposit implements Operation {
 		this.transactionRepository = transactionRepository;
 	}
 
+	/**
+	 * deposer l'argent d'un client vers son compte
+	 * @return message
+	 */
 	@Override
 	public String operate(Account account) {
 		if(Double.compare(amount, minDeposite) < 0 ) {
