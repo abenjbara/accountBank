@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ing.kata.business.BankBusiness;
 import ing.kata.business.OperationDeposit;
-import ing.kata.business.OperationHistory;
 import ing.kata.business.OperationWithdrawal;
 import ing.kata.repository.TransactionRepository;
+import ing.kata.service.dto.HistoryDTO;
 import ing.kata.service.dto.TransactionDTO;
 
 @RestController
@@ -55,8 +55,8 @@ public class BankController {
 	 * @return un message à l'utilisateur
 	 */
 	@GetMapping("/customers/{customerId}/accounts/{accountId}/history")
-	public ResponseEntity<String> history(@PathVariable Long customerId, @PathVariable Long accountId){
-		String transactionHistory = bankBusiness.operate(customerId, accountId, new OperationHistory());
+	public ResponseEntity<HistoryDTO> history(@PathVariable Long customerId, @PathVariable Long accountId){
+		HistoryDTO transactionHistory = bankBusiness.operationsHistory(customerId, accountId);
 		return  ResponseEntity.ok(transactionHistory);
 	}
 	

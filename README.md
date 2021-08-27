@@ -1,6 +1,6 @@
 # Bank Account Kata
 
-## technologie utilisées
+## technologies utilisées
 * JAVA 8  - Spring boot
 * JUnit 5
 * base de données H2
@@ -49,8 +49,6 @@ I want to see the history (operation, date, amount, balance) of my operations
 * http://localhost:8080/customers/{customerId}/accounts/{accountId}/history
 * exemple http://localhost:8080/customers/1/accounts/4/history
 
-### Securité
-tout le code de sécurité est commenté
 
 ## Jeu de données
 En lancant l'application , 3 clients et 4 comptes sont crées.
