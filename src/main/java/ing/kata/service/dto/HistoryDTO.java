@@ -13,15 +13,12 @@ public class HistoryDTO {
 	
 	public HistoryDTO() {
 		balance = 0.0;
-		deposits = new ArrayList<>();
-		withdrawal = new ArrayList<>();
+		transactions = new ArrayList<>();
 	}
 	
 	
 	private Double balance;
 	
-	private List<Double> deposits;
-	
-	private List<Double> withdrawal;
+	private List<TransactionDTO> transactions;
 
 }

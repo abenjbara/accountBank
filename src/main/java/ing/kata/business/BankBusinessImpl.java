@@ -1,15 +1,17 @@
 package ing.kata.business;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ing.kata.common.Utils.transactionType;
 import ing.kata.common.exception.BankException;
 import ing.kata.common.exception.NotFoundException;
 import ing.kata.domain.Account;
-import ing.kata.domain.Transaction;
 import ing.kata.repository.AccountRepository;
 import ing.kata.service.dto.HistoryDTO;
+import ing.kata.service.dto.TransactionDTO;
 
 @Service
 public class BankBusinessImpl implements BankBusiness {
@@ -50,14 +52,12 @@ public class BankBusinessImpl implements BankBusiness {
 				
 		// Mettre tout l'historique dans un seul message (String)
 		history.setBalance(account.getSolde());							
-		for(Transaction transaction : account.getTransactions()) {
-			if(transaction.getType().equals(transactionType.DEPOSIT)) {
-				history.getDeposits().add(transaction.getAmount());
-			}
-			if(transaction.getType().equals(transactionType.WITHDRAWAL)) {
-				history.getWithdrawal().add(transaction.getAmount());
-			}
-		}				
+		
+		List<TransactionDTO> transactions = account.getTransactions().stream()
+				.map(t -> new TransactionDTO(t.getAmount(),t.getType()))
+				.collect(Collectors.toList());
+		
+		history.setTransactions(transactions);
 		
 		return history;
 	}
