@@ -2,12 +2,12 @@
 
 ## technologies utilisées
 * JAVA 8  - Spring boot
-* JUnit 5
+* JUnit 5 - Mockito
 * base de données H2
 
 
 ## REST API
-dans cette API REST on trouve un service par US (3 services au total), et un test par service
+Cette REST API fournit 3 services:
 
 ### Service 1:
  ```bash
@@ -17,12 +17,14 @@ I want to make a deposit in my account
 ```
 
 
-* @POST : http://localhost:8080/bank/deposit
-* exemple du body : {
-			"clientId" : 1,
-			"accountId" : 4,
-			"amount" : 50
-		 }
+* @POST : http://localhost:8080/customers/3/accounts/6/deposit
+* exemple du body : 
+
+```bash
+{
+	"amount" : 54
+}
+```
 		 
 ### Service 2:
  ```bash
@@ -31,13 +33,14 @@ As a bank client
 I want to make a withdrawal from my account
 ```
 
-* @POST : http://localhost:8080/bank/withdrawal
-* exemple du body : {
-			"clientId" : 1,
-			"accountId" : 4,
-			"amount" : 50
-		 }
+* @POST : http://localhost:8080/customers/3/accounts/6/withdrawal
+* exemple du body : 
 
+```bash
+{
+	"amount" : 20.3
+}
+```
 
 ### Service 3:
  ```bash
@@ -70,5 +73,5 @@ Account[id=7, solde='79999,600000']
 ## Pour lancer l'application 
 mvn spring-boot:run
 
-## Pour lancer les tests et generer le jar
+## Pour lancer les tests unitaires et generer le jar
 mvn clean package
