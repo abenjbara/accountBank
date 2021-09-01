@@ -1,5 +1,6 @@
 package ing.kata.service.dto;
 
+import ing.kata.common.BankUtils.transactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionDTO {
 	
-	private long clientId;
-	
-	private long accountId;
+	public TransactionDTO(double amount) {
+		this.amount = amount;
+	}
 	
 	private double amount;
+	
+	private transactionType type;
 }

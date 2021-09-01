@@ -1,41 +1,54 @@
 # Bank Account Kata
 
-## technologie utilisées
+## technologies utilisées
 * JAVA 8  - Spring boot
 * JUnit 5
 * base de données H2
 
 
 ## REST API
-dans cette API REST on trouve un service par US (4 services au total), et un test par service
+dans cette API REST on trouve un service par US (3 services au total), et un test par service
 
-### Service 1 (correspond à l'US1)
+### Service 1:
+ ```bash
+In order to save money
+As a bank client
+I want to make a deposit in my account
+```
+
+
 * @POST : http://localhost:8080/bank/deposit
 * exemple du body : {
-			"custumerId" : 1,
+			"clientId" : 1,
 			"accountId" : 4,
 			"amount" : 50
 		 }
 		 
-### Service 2 (correspond à l'US2)
-* @POST : http://localhost:8080/bank/deposit
+### Service 2:
+ ```bash
+In order to retrieve some or all of my savings
+As a bank client
+I want to make a withdrawal from my account
+```
+
+* @POST : http://localhost:8080/bank/withdrawal
 * exemple du body : {
-			"custumerId" : 1,
+			"clientId" : 1,
 			"accountId" : 4,
 			"amount" : 50
 		 }
 
-### Service 3 : (correspond à l'US3)	
-* @GET: http://localhost:8080/bank/balance/{isAccount}
-* example : http://localhost:8080/bank/balance/4
 
+### Service 3:
+ ```bash
+In order to check my operations
+As a bank client
+I want to see the history (operation, date, amount, balance) of my operations
+```
 
-### Service 3 : (correspond à l'US4)	
-* http://localhost:8080/bank/history/{idAccount}
-* exemple http://localhost:8080/bank/history/4
+* http://localhost:8080/customers/{customerId}/accounts/{accountId}/history
+* exemple http://localhost:8080/customers/1/accounts/4/history
 
-### Securité
-tout le code de sécurité est commenté
 
 ## Jeu de données
 En lancant l'application , 3 clients et 4 comptes sont crées.

@@ -4,9 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import ing.kata.domain.Account;
-import ing.kata.domain.Custumer;
+import ing.kata.domain.Customer;
 import ing.kata.repository.AccountRepository;
 import ing.kata.repository.CustumerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +27,9 @@ public class App {
 		return args -> {
 			
 			//clients
-			Custumer c1 = new Custumer("jean", "pierre");		
-			Custumer c2 = new Custumer("adam", "benjbara"); 			
-			Custumer c3 = new Custumer("celine", "barreau"); 
+			Customer c1 = new Customer("jean", "pierre");		
+			Customer c2 = new Customer("adam", "benjbara"); 			
+			Customer c3 = new Customer("celine", "barreau"); 
 			
 			//comptes
 			Account account1 = new Account(256.5);
@@ -50,7 +52,7 @@ public class App {
 		    accountR.save(account4);
 		    
 			log.info("liste des clients" );
-			for ( Custumer c : custumerR.findAll()) {
+			for ( Customer c : custumerR.findAll()) {
 				log.info(c.toString());
 			}
 			
@@ -59,6 +61,19 @@ public class App {
 				log.info(a.toString());
 			}
 			
+		};
+	}
+	
+	/**
+	 * Configuration CORS
+	 */
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+			}
 		};
 	}
 }

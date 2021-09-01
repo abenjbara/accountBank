@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import ing.kata.common.BankUtils.transactionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,15 +20,18 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	 
-	private String action; 
+	private transactionType type;
+	
+	private Double amount;
 	 
 	@ManyToOne
 	@JoinColumn(name="account_id")
 	private Account account;
 	
-	public Transaction(String action, Account account) {
-		this.action = action;
+	public Transaction(transactionType transactionType, Account account, Double amount) {
+		this.type = transactionType;
 		this.account = account;
+		this.amount = amount;
 	}
 	 
 }

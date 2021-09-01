@@ -1,5 +1,5 @@
 bank:
-  min-deposit: 0.1
+  min-deposit: 0.01
   
 #spring:
 #  security:
