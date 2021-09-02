@@ -2,7 +2,7 @@ package ing.kata.business;
 
 import ing.kata.service.dto.HistoryDTO;
 
-public interface BankBusiness {
+public interface AccountBusiness {
 	
 	/**
 	 * Après controle, permet de faire une action (ou operation) sur le compte boncaire

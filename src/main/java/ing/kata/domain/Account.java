@@ -21,10 +21,17 @@ public class Account {
 	
 	public Account(double solde) {
 		this.solde = solde;
+		transactions = new ArrayList<>();
+	}
+	
+	public Account(double solde,Customer owner) {
+		this.solde = solde;
+		this.owner = owner;
+		this.transactions = new ArrayList<>();
 	}
 	
 	public Account() {
-		transactions = new ArrayList<>();
+		this.transactions = new ArrayList<>();
 	}
 
 	@Id
@@ -35,7 +42,7 @@ public class Account {
 
 	@ManyToOne
 	@JoinColumn(name="costumer_id")
-	private Custumer owner;
+	private Customer owner;
 	
 	@OneToMany(mappedBy="account" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<Transaction> transactions;

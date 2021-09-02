@@ -1,6 +1,6 @@
 package ing.kata.service.dto;
 
-import ing.kata.common.Utils.transactionType;
+import ing.kata.common.BankUtils.transactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

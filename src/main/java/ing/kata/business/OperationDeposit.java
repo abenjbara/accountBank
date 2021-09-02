@@ -2,7 +2,8 @@ package ing.kata.business;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import ing.kata.common.Utils.transactionType;
+import ing.kata.common.BankUtils;
+import ing.kata.common.BankUtils.transactionType;
 import ing.kata.common.exception.BankException;
 import ing.kata.domain.Account;
 import ing.kata.domain.Transaction;
@@ -38,7 +39,7 @@ public class OperationDeposit implements Operation {
 		// ajout transaction
 		transactionRepository.save(new Transaction(transactionType.DEPOSIT , account, amount));				
 		
-		return "Successful deposit!";
+		return BankUtils.SUCCESS_DEPOSIT;
 	}
 
 }

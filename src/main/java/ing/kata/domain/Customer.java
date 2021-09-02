@@ -5,13 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Custumer {
+@AllArgsConstructor
+public class Customer {
 
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
@@ -21,7 +23,7 @@ public class Custumer {
 	  private String phone;
 	  
 	  
-	  public Custumer(String firstName, String lastName) {
+	  public Customer(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	  }	  

@@ -14,7 +14,7 @@ import ing.kata.service.dto.HistoryDTO;
 import ing.kata.service.dto.TransactionDTO;
 
 @Service
-public class BankBusinessImpl implements BankBusiness {
+public class AccountBusinessImpl implements AccountBusiness {
 	
 	private static final String COMPTE_INTROUVABLE = "Account not found";
 
@@ -26,10 +26,10 @@ public class BankBusinessImpl implements BankBusiness {
 	 * @return message
 	 */
 	@Override
-	public String operate(Long custumerId, Long acountId, Operation operation) {		
+	public String operate(Long custumerId, Long accountId, Operation operation) {		
 		// controle
-		Account account =  accountRepository.findById(acountId)
-											.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
+		Account account =  accountRepository.findById(accountId)
+										.orElseThrow(() -> new NotFoundException(COMPTE_INTROUVABLE));
 		this.checkAcount(custumerId, account);
 		
 		// operate
@@ -60,8 +60,7 @@ public class BankBusinessImpl implements BankBusiness {
 		history.setTransactions(transactions);
 		
 		return history;
-	}
-	
+	}	
 	
 	
 	/**

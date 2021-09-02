@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ing.kata.business.BankBusiness;
+import ing.kata.business.AccountBusiness;
 import ing.kata.business.OperationDeposit;
 import ing.kata.business.OperationWithdrawal;
 import ing.kata.repository.TransactionRepository;
@@ -16,16 +16,14 @@ import ing.kata.service.dto.HistoryDTO;
 import ing.kata.service.dto.TransactionDTO;
 
 @RestController
-public class BankController {
-	
-	// users/{id}/accounts/{id}/deposit
+public class AccountController {
 	
 	
 	@Autowired
 	private TransactionRepository transactionRepository;
 	
 	@Autowired
-	private BankBusiness bankBusiness;
+	private AccountBusiness accountBusiness;
 	
 	/**
 	 * Permet le dépot d'argent d'un client vers son compte, s'il est supérieur à 0,01€
@@ -35,7 +33,7 @@ public class BankController {
 	//@PreAuthorize("hasAuthority('bank_edit')")
 	public ResponseEntity<String> deposit(@PathVariable Long customerId, @PathVariable Long accountId, @RequestBody TransactionDTO transactionDTO) {
 		
-		String depositMessage = bankBusiness.operate(customerId, accountId, new OperationDeposit(transactionDTO.getAmount(),transactionRepository));
+		String depositMessage = accountBusiness.operate(customerId, accountId, new OperationDeposit(transactionDTO.getAmount(),transactionRepository));
 		return ResponseEntity.ok(depositMessage);
 		
 	}
@@ -46,7 +44,7 @@ public class BankController {
 	 */
 	@PostMapping("/customers/{customerId}/accounts/{accountId}/withdrawal")
 	public ResponseEntity<String> withdraw(@PathVariable Long customerId, @PathVariable Long accountId, @RequestBody TransactionDTO transactionDTO) {
-		String withdrawMessage = bankBusiness.operate(customerId, accountId, new OperationWithdrawal(transactionDTO.getAmount(),transactionRepository));
+		String withdrawMessage = accountBusiness.operate(customerId, accountId, new OperationWithdrawal(transactionDTO.getAmount(),transactionRepository));
 		return ResponseEntity.ok(withdrawMessage);
 	}
 	
@@ -56,7 +54,7 @@ public class BankController {
 	 */
 	@GetMapping("/customers/{customerId}/accounts/{accountId}/history")
 	public ResponseEntity<HistoryDTO> history(@PathVariable Long customerId, @PathVariable Long accountId){
-		HistoryDTO transactionHistory = bankBusiness.operationsHistory(customerId, accountId);
+		HistoryDTO transactionHistory = accountBusiness.operationsHistory(customerId, accountId);
 		return  ResponseEntity.ok(transactionHistory);
 	}
 	
